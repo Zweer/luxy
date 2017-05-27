@@ -1,4 +1,5 @@
 <template>
+  <router-link to="/luxy" id="nav-next"></router-link>
     <div>
         <div id="_content">
             <video id="_webcam"></video>
