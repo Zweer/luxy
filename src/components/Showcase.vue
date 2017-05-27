@@ -1,5 +1,4 @@
 <template>
-  <router-link to="/luxy" id="nav-next"></router-link>
     <div>
         <div id="_content">
             <video id="_webcam"></video>
@@ -8,7 +7,7 @@
             <canvas id="_threejs"></canvas>
             <canvas id="_drawing"></canvas>
         </div>
-        <router-link to="/alfred" id="nav-next"></router-link>
+        <router-link to="/luxy" id="nav-next"></router-link>
     </div>
 </template>
 
