@@ -1,3 +1,3 @@
 <template>
-  <router-link to="/alfred" id="nav-next"></router-link>
+  <router-link to="/luxy" id="nav-next"></router-link>
 </template>
