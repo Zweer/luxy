@@ -9,6 +9,20 @@
 
     <link rel="stylesheet" href="static/css/normalize.min.css">
     <link rel="stylesheet" href="static/css/main.css">
+
+    <script src="static/js/createjs/preloadjs-0.6.2.min.js"></script>
+    <script src="static/js/createjs/easeljs-0.8.2.min.js"></script>
+    <script>
+        window.brfv4 = {
+            locateFile: function(fileName) {
+                return "static/js/brf/" + fileName;
+            }}
+    </script>
+    <script src="static/js/brf/BRFv4_JS_TK240517_v4.0b31_trial.js"></script>
+
+    <script src="static/js/brf/utils/BRFv4DrawingUtils_CreateJS.js"></script>
+    <script src="static/js/brf/utils/BRFv4DOMUtils.js"></script>
+    <script src="static/js/brf/utils/BRFv4PointUtils.js"></script>
   </head>
 
   <body>
