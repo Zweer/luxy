@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Showcase from '@/components/Showcase';
 import Luxy from '@/components/Luxy';
 import Selection from '@/components/Selection';
+import Selfie from '@/components/Selfie';
 
 Vue.use(VueRouter);
 

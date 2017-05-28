@@ -270,7 +270,7 @@ function startCamera(tracking = 0) {
              break;
            }
          }
-      }
+      }}
 
       if (!showBaseNode) {
         _baseNode.alpha = 0.0;
