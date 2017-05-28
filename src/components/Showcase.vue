@@ -42,6 +42,9 @@
     }
 </style>
 <script>
+    var intervalSDK = -1;
+    var webcam = undefined;
+
     var draw = brfv4.example.drawing;
     var dom = brfv4.example.dom;
     var _images = [];
@@ -52,33 +55,12 @@
     var calcAngle = brfv4.BRFv4PointUtils.calcAngle;
     var toDegree = brfv4.BRFv4PointUtils.toDegree;
 
-    function changeImage(bitmap, index) {
-
-        var imageFactor = 1.0;
-
-        if (index == 0) {
-            imageFactor = 1.0;
-        } else if (index == 1) {
-            imageFactor = 3.3;
-        }
-
-        bitmap.scaleX = imageFactor;
-        bitmap.scaleY = imageFactor;
-
-        bitmap.x = -parseInt(bitmap.getBounds().width * bitmap.scaleX * 0.50);
-        bitmap.y = -parseInt(bitmap.getBounds().height * bitmap.scaleY * 0.45);
-
-        _baseNode.removeAllChildren();
-        _baseNode.addChild(bitmap);
-    }
-
     function startCamera() {
         console.log("Starting camera");
-        var webcam = document.getElementById("_webcam");
         var timeoutWebcam = -1;
+        webcam = document.getElementById("_webcam");
 
         function onStreamFetched(mediaStream) {
-
             webcam.srcObject = mediaStream;
             webcam.play();
 
@@ -114,139 +96,163 @@
             })
             .then(onStreamFetched)
             .catch(function() {});
-    }
 
-    function initBRF(width, height) {
-        console.log("Init BRF");
+        function changeImage(bitmap, index) {
 
-        draw.setup(dom.getElement("_drawing"), dom.getElement("_faceSub"), 30);
+            var imageFactor = 1.0;
 
-        draw.imageContainer.addChild(_baseNode);
-        var _imageURLs = [
-            "/static/img/img_glasses.png"
-        ];
-
-        _image = new createjs.Bitmap(_imageURLs[0]);
-
-        _image.image.onload = function() {
-            changeImage(_image);
-        }
-        dom.updateLayout(width, height);
-        draw.updateLayout(width, height);
-        var webcam = document.getElementById("_webcam");
-        var imageData = document.getElementById("_imageData");
-
-        imageData.width = width;
-        imageData.height = height;
-        imageData.style.position = "absolute";
-
-        var imageDataCtx = imageData.getContext("2d");
-
-        var brfManager = new brfv4.BRFManager();
-        var resolution = new brfv4.Rectangle(0, 0, width, height);
-
-        var timeoutSDK = -1;
-        var intervalSDK = -1;
-
-        function waitForSDK() {
-
-            if (brfv4.sdkReady) {
-
-                onReadySDK();
-
-            } else {
-
-                clearTimeout(timeoutSDK);
-                timeoutSDK = setTimeout(waitForSDK, 100);
+            if (index == 0) {
+                imageFactor = 1.0;
+            } else if (index == 1) {
+                imageFactor = 3.3;
             }
+
+            bitmap.scaleX = imageFactor;
+            bitmap.scaleY = imageFactor;
+
+            bitmap.x = -parseInt(bitmap.getBounds().width * bitmap.scaleX * 0.50);
+            bitmap.y = -parseInt(bitmap.getBounds().height * bitmap.scaleY * 0.45);
+
+            _baseNode.removeAllChildren();
+            _baseNode.addChild(bitmap);
         }
 
-        function onReadySDK() {
-            initSDK();
-        }
+        function initBRF(width, height) {
+            console.log("Init BRF");
+            draw.setup(dom.getElement("_drawing"), dom.getElement("_faceSub"), 30);
 
-        function initSDK() {
+            draw.imageContainer.addChild(_baseNode);
+            var _imageURLs = [
+                "/static/img/img_glasses.png"
+            ];
 
-            if (!brfv4.sdkReady) {
+            _image = new createjs.Bitmap(_imageURLs[0]);
 
-                waitForSDK();
-
-            } else {
-
-                brfManager.init(resolution, resolution, "com.tastenkunst.brfv4.js.examples.minimal.webcam");
-                intervalSDK = setInterval(update, 1000 / 30);
+            _image.image.onload = function() {
+                changeImage(_image);
             }
-        }
+            dom.updateLayout(width, height);
+            draw.updateLayout(width, height);
+            var webcam = document.getElementById("_webcam");
+            var imageData = document.getElementById("_imageData");
 
-        function update() {
+            imageData.width = width;
+            imageData.height = height;
+            imageData.style.position = "absolute";
 
-            imageDataCtx.setTransform(-1.0, 0, 0, 1, resolution.width, 0); // mirrored for draw of video
-            imageDataCtx.drawImage(webcam, 0, 0, resolution.width, resolution.height);
-            imageDataCtx.setTransform(1.0, 0, 0, 1, 0, 0); // unmirrored for draw of results
+            var imageDataCtx = imageData.getContext("2d");
 
-            brfManager.update(imageDataCtx.getImageData(0, 0, resolution.width, resolution.height).data);
+            var brfManager = new brfv4.BRFManager();
+            var resolution = new brfv4.Rectangle(0, 0, width, height);
 
-            draw.clear();
+            var timeoutSDK = -1;
 
-            // Face detection results: a rough rectangle used to start the face tracking.
+            function waitForSDK() {
 
-            //draw.drawRects(brfManager.getAllDetectedFaces(), false, 1.0, 0x00a1ff, 0.5);
-            //draw.drawRects(brfManager.getMergedDetectedFaces(), false, 2.0, 0xffd200, 1.0);
+                if (brfv4.sdkReady) {
 
-            // Get all faces. The default setup only tracks one face.
+                    onReadySDK();
 
-            var faces = brfManager.getFaces();
+                } else {
 
-            // If no face was tracked: hide the image overlays.
-
-            var showBaseNode = false;
-
-            for (var i = 0; i < faces.length; i++) {
-
-                var face = faces[i];
-
-                if (face.state == brfv4.BRFState.FACE_TRACKING_START ||
-                    face.state == brfv4.BRFState.FACE_TRACKING) {
-
-                    // Face Tracking results: 68 facial feature points.
-
-                    /*draw.drawTriangles(face.candideVertices, face.candideTriangles, false, 1.0, 0xffd200, 0.4, 0, 0);
-                    draw.drawTrianglesAsPoints(face.candideVertices, 2.0, false, 0xffd200, 0.4);
-
-                    draw.drawTriangles(face.vertices, face.triangles, false, 1.0, 0x00a0ff, 0.4, 0, 0);
-                    draw.drawTrianglesAsPoints(face.vertices, 2.0, false, 0x00a0ff, 0.4);*/
-
-                    // Set position to be nose top and calculate rotation.
-
-                    _position.x = face.points[27].x;
-                    _position.y = face.points[27].y;
-
-                    var leftEye = face.points[36];
-                    var rightEye = face.points[45];
-
-                    var dist = calcDistance(leftEye, rightEye);
-                    var rot = toDegree(calcAngle(leftEye, rightEye));
-                    var scale = (dist * 0.0026);
-
-                    _baseNode.rotation = 0;
-                    _baseNode.x = _position.x;
-                    _baseNode.y = _position.y;
-                    _baseNode.rotation = rot;
-
-                    _baseNode.scaleX = scale * (1 - toDegree(Math.abs(face.rotationY)) / 150.0);
-                    _baseNode.scaleY = scale * (1 - toDegree(Math.abs(face.rotationX)) / 100.0);
-                    _baseNode.alpha = 1.0;
-
-                    showBaseNode = true;
+                    clearTimeout(timeoutSDK);
+                    timeoutSDK = setTimeout(waitForSDK, 100);
                 }
             }
 
-            if (!showBaseNode) {
-                _baseNode.alpha = 0.0;
+            function onReadySDK() {
+                initSDK();
             }
-        }
 
-        initSDK();
+            function initSDK() {
+                if (!brfv4.sdkReady)
+                    waitForSDK();
+                else
+                    brfManager.init(resolution, resolution, "com.tastenkunst.brfv4.js.examples.minimal.webcam");
+                intervalSDK = setInterval(update, 1000 / 30);
+            }
+
+            function update() {
+
+                imageDataCtx.setTransform(-1.0, 0, 0, 1, resolution.width, 0); // mirrored for draw of video
+                imageDataCtx.drawImage(webcam, 0, 0, resolution.width, resolution.height);
+                imageDataCtx.setTransform(1.0, 0, 0, 1, 0, 0); // unmirrored for draw of results
+
+                brfManager.update(imageDataCtx.getImageData(0, 0, resolution.width, resolution.height).data);
+
+                draw.clear();
+
+                // Face detection results: a rough rectangle used to start the face tracking.
+
+                //draw.drawRects(brfManager.getAllDetectedFaces(), false, 1.0, 0x00a1ff, 0.5);
+                //draw.drawRects(brfManager.getMergedDetectedFaces(), false, 2.0, 0xffd200, 1.0);
+
+                // Get all faces. The default setup only tracks one face.
+
+                var faces = brfManager.getFaces();
+
+                // If no face was tracked: hide the image overlays.
+
+                var showBaseNode = false;
+
+                for (var i = 0; i < faces.length; i++) {
+
+                    var face = faces[i];
+
+                    if (face.state == brfv4.BRFState.FACE_TRACKING_START ||
+                        face.state == brfv4.BRFState.FACE_TRACKING) {
+                        // Face Tracking results: 68 facial feature points.
+
+                        /*draw.drawTriangles(face.candideVertices, face.candideTriangles, false, 1.0, 0xffd200, 0.4, 0, 0);
+                        draw.drawTrianglesAsPoints(face.candideVertices, 2.0, false, 0xffd200, 0.4);
+
+                        draw.drawTriangles(face.vertices, face.triangles, false, 1.0, 0x00a0ff, 0.4, 0, 0);
+                        draw.drawTrianglesAsPoints(face.vertices, 2.0, false, 0x00a0ff, 0.4);*/
+
+                        // Set position to be nose top and calculate rotation.
+
+                        _position.x = face.points[27].x;
+                        _position.y = face.points[27].y;
+
+                        var leftEye = face.points[36];
+                        var rightEye = face.points[45];
+
+                        var dist = calcDistance(leftEye, rightEye);
+                        var rot = toDegree(calcAngle(leftEye, rightEye));
+                        var scale = (dist * 0.0026);
+
+                        _baseNode.rotation = 0;
+                        _baseNode.x = _position.x;
+                        _baseNode.y = _position.y;
+                        _baseNode.rotation = rot;
+
+                        _baseNode.scaleX = scale * (1 - toDegree(Math.abs(face.rotationY)) / 150.0);
+                        _baseNode.scaleY = scale * (1 - toDegree(Math.abs(face.rotationX)) / 100.0);
+                        _baseNode.alpha = 1.0;
+
+                        showBaseNode = true;
+                    }
+                }
+
+                if (!showBaseNode) {
+                    _baseNode.alpha = 0.0;
+                }
+            }
+
+            initSDK();
+        }
     }
-    (document.readyState === "complete" && startCamera) || window.addEventListener("load", startCamera);
+
+    export default {
+        destroyed: () => {
+            intervalSDK !== -1 && window.clearInterval(intervalSDK);
+            if (webcam) {
+                webcam.src = "";
+                webcam.play();
+            }
+        },
+        created: () => {
+            window.setTimeout(startCamera, 1000);
+        }
+    }
 </script>
