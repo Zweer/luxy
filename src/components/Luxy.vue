@@ -24,9 +24,12 @@
     </div>
 
     <div id="question" :class="questionString + ' ' + stepString" v-on:click="highlightGlasses">
-      <img src="/static/img/schermata2/esperienza1.png">
-      <img src="/static/img/schermata2/esperienza2.png">
-      <img src="/static/img/schermata2/esperienza3.png">
+      <div>
+        Qual è il tuo mood oggi? <br><br>
+        <img src="/static/img/schermata2/esperienza1.png">
+        <img src="/static/img/schermata2/esperienza2.png">
+        <img src="/static/img/schermata2/esperienza3.png">
+      </div>
     </div>
 
     <router-link to="/" id="nav-prev"></router-link>
@@ -73,11 +76,13 @@
   }
     #question {
       position: absolute;
-      width: 430px;
-      height: 100px;
+      width: 622px;
       left: 50%;
-      bottom: 10px;
+      bottom: 150px;
       transform: translate(-50%, 0);
+
+      background: #000;
+      color: #fff;
 
       opacity: 0;
       transition: opacity 2s;
@@ -90,9 +95,13 @@
         display: none;
       }
 
-      > img {
+      > div {
+        margin: 10px 20px 0;
+      }
+
+      img {
         height: 100px;
-        margin: 0 20px;
+        margin: 0 40px;
       }
     }
 </style>
