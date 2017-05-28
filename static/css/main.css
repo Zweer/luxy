@@ -69,8 +69,17 @@ textarea {
   background-size: cover;
 }
 
+#app > div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 #app.showcase {
   background-image: url('/static/img/schermata1/sfondo.png');
+}
+#app.luxy {
+  background-image: url('/static/img/schermata2/sfondo.png');
 }
 
 #nav-next {
@@ -92,6 +101,38 @@ textarea {
   left: 0;
   bottom: 0;
 }
+
+#_content {
+  position: absolute;
+
+  left: 50%;
+  bottom: 120px;
+
+  transform: translate(-50%, 0);
+
+  width: 600px !important;
+  height: 404px !important;
+  margin: auto;
+
+  background: url('/static/img/tablet.png') center no-repeat;
+  background-size: contain;
+}
+
+.video-webcam {
+  display: none;
+}
+
+.video-webcam,
+.video-canvas {
+  position: absolute;
+
+  top: 37px;
+  left: 37px;
+
+  width: 528px;
+  height: 330px;
+}
+
 
 
 
