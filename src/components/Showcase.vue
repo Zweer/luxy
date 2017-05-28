@@ -2,7 +2,7 @@
   <div>
     <div id="_content">
       <div>
-        <video id="_webcam"></video>
+        <video class="video-webcam" id="_webcam"></video>
         <canvas class="video-canvas" id="_imageData"></canvas>
         <canvas class="video-canvas" id="_faceSub"></canvas>
         <canvas class="video-canvas" id="_threejs"></canvas>

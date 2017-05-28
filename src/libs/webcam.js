@@ -119,6 +119,68 @@ function startCamera(tracking = false) {
       intervalSDK = setInterval(update, 1000 / 30);
     }
 
+    var measures = [{
+      name: "Head to chin",
+      i: 19,
+      j: 8,
+      measures: []
+    }, {
+      name: "Head to pupil",
+      i: 19,
+      j: 38,
+      measures: []
+    }, {
+      name: "Pupil to nosetip",
+      i: 38,
+      j: 33,
+      measures: []
+    }, {
+      name: "Pupil to lip",
+      i: 41,
+      j: 66,
+      measures: []
+    }, {
+      name: "Width of nose",
+      i: 31,
+      j: 35,
+      measures: []
+    }, {
+      name: "Outside distance between eyes",
+      i: 36,
+      j: 45,
+      measures: []
+    }, {
+      name: "Width of head",
+      i: 0,
+      j: 16,
+      measures: []
+    }, {
+      name: "Hairline to pupil",
+      i: 36,
+      j: 0,
+      measures: []
+    }, {
+      name: "Nosetip to chin",
+      i: 33,
+      j: 8,
+      measures: []
+    }, {
+      name: "Lips to chin",
+      i: 66,
+      j: 8,
+      measures: []
+    }, {
+      name: "Length of lips",
+      i: 48,
+      j: 54,
+      measures: []
+    }, {
+      name: "Nosetip to lips",
+      i: 33,
+      j: 66,
+      measures: []
+    }];
+
     function update() {
       imageDataCtx.setTransform(-1.0, 0, 0, 1, resolution.width, 0); // mirrored for draw of video
       imageDataCtx.drawImage(webcam, 0, 0, resolution.width, resolution.height);
@@ -153,6 +215,26 @@ function startCamera(tracking = false) {
 
             draw.drawTriangles(face.vertices, face.triangles, false, 1.0, 0x00a0ff, 0.4, 0, 0);
             draw.drawTrianglesAsPoints(face.vertices, 2.0, false, 0x00a0ff, 0.4);
+
+            var ctx = draw.faceTextures.getContext("2d");
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 2;
+            ctx.fillStyle = "gold";
+            ctx.font = "13px Arial";
+            var bottom = (face.points[48].y + face.points[60].y) / 2;
+            var bottomb = (face.points[7].y + face.points[9].y) / 2;
+            var top = (face.points[36].y + face.points[45].y) / 2;
+
+            var goldenRation = (bottom - top) / (bottomb - bottom);
+            for (var i = 0; i < measures.length; i++) {
+              const measure = measures[i];
+              measure.measures.push(Math.sqrt(Math.pow((face.points[measure.j].x - face.points[measure.i].x), 2) + Math.pow((face.points[measure.j].y - face.points[measure.i].y), 2)));
+              if (measure.measures.length > 10)
+                measure.measures.splice(0, 1);
+              const avg = Math.floor(measure.measures.reduce((a, c) => a + c) / measure.measures.length) / 10;
+              //ctx.strokeText(measure.name + ": " + avg + " cm", 10, 15 + i * 20);
+              ctx.fillText(measure.name + ": " + avg + " cm", 10, 15 + i * 20);
+            }
           } else {
             // Set position to be nose top and calculate rotation.
 
