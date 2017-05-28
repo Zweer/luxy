@@ -95,23 +95,25 @@
 </head>
 
 <body>
-    <div id="popup" class="popup-wrapper hide">
-        <div class="popup-content">
-            <div class="popup-title">
-                <button type="button" class="popup-close">&times;</button>
-                <h3>Popup Title</h3>
-            </div>
-            <div class="popup-body">
-                <p>Popup body</p>
+    <div style="position:relative">
+        <div id="popup" class="popup-wrapper hide">
+            <div class="popup-content">
+                <div class="popup-title">
+                    <button type="button" class="popup-close">&times;</button>
+                    <h3>Popup Title</h3>
+                </div>
+                <div class="popup-body">
+                    <p>Popup body</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="_content">
-        <video id="_webcam"></video>
-        <canvas id="_imageData"></canvas>
-        <canvas id="_faceSub"></canvas>
-        <canvas id="_threejs"></canvas>
-        <canvas id="_drawing"></canvas>
+        <div id="_content">
+            <video id="_webcam"></video>
+            <canvas id="_imageData"></canvas>
+            <canvas id="_faceSub"></canvas>
+            <canvas id="_threejs"></canvas>
+            <canvas id="_drawing"></canvas>
+        </div>
     </div>
     <script>
         window.onload = initMinimal; // see BRFv4DemoMinimalWebcam.js
