@@ -8,7 +8,7 @@
       <canvas class="video-canvas" id="_drawing2"></canvas>
 
       <div class="video-canvas" id="glasses">
-        <div class="choices">
+        <div class="choices" v-on:click="goToSelfie">
           Cosa ne pensi di questi?<br><br>
 
           <img src="/static/img/schermata3/occhiale1.png">
@@ -79,6 +79,13 @@
       bottom: 10px;
       transform: translate(-50%, 0);
 
+      opacity: 0;
+      transition: opacity 2s;
+
+      &.active-question-1 {
+        opacity: 1;
+      }
+
       &.step-1 {
         display: none;
       }
@@ -86,31 +93,6 @@
       > img {
         height: 100px;
         margin: 0 20px;
-      }
-
-      > div {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0;
-        transition: opacity 2s;
-      }
-
-      &.active-question-1 #question-1,
-      &.active-question-2 #question-2,
-      &.active-question-3 #question-3 {
-        opacity: 1;
-      }
-      #question-1 {
-        background: blue;
-      }
-      #question-2 {
-        background: green;
-      }
-      #question-3 {
-        background: yellow;
       }
     }
 </style>
@@ -136,7 +118,6 @@
       },
     },
     created() {
-      setTimeout(() => this.incrementQuestion(), 5000);
       setTimeout(() => startCamera(1), 1000);
     },
     methods: {
@@ -145,10 +126,14 @@
       },
 
       highlightGlasses() {
-        this.destroyWebcam();
+        if (this.question === 0) {
+          this.incrementQuestion();
+        } else {
+          this.destroyWebcam();
 
-        this.step += 1;
-        this.body = 'choice-done';
+          this.step += 1;
+          this.body = 'choice-done';
+        }
       },
 
       destroyWebcam() {
@@ -160,6 +145,10 @@
           webcam.src = '';
           webcam.play();
         }
+      },
+
+      goToSelfie() {
+        this.$router.push('/selfie');
       },
     },
     watch: {
