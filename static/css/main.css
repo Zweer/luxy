@@ -81,6 +81,9 @@ textarea {
 #app.luxy {
   background-image: url('/static/img/schermata2/sfondo.png');
 }
+#app.selfie {
+  background-image: url('/static/img/schermata2/sfondo-highlight.png');
+}
 
 #nav-next {
   position: absolute;

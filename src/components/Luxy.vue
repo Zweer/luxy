@@ -8,7 +8,7 @@
       <canvas class="video-canvas" id="_drawing1"></canvas>
 
       <div class="video-canvas" id="glasses">
-        <div class="choices">
+        <div class="choices" v-on:click="goToSelfie">
           Cosa ne pensi di questi?<br><br>
 
           <img src="/static/img/schermata3/occhiale1.png">
@@ -24,9 +24,12 @@
     </div>
 
     <div id="question" :class="questionString + ' ' + stepString" v-on:click="highlightGlasses">
-      <img src="/static/img/schermata2/esperienza1.png">
-      <img src="/static/img/schermata2/esperienza2.png">
-      <img src="/static/img/schermata2/esperienza3.png">
+      <div>
+        Qual è il tuo mood oggi? <br><br>
+        <img src="/static/img/schermata2/esperienza1.png">
+        <img src="/static/img/schermata2/esperienza2.png">
+        <img src="/static/img/schermata2/esperienza3.png">
+      </div>
     </div>
 
     <router-link to="/" id="nav-prev"></router-link>
@@ -73,44 +76,32 @@
   }
     #question {
       position: absolute;
-      width: 430px;
-      height: 100px;
+      width: 622px;
       left: 50%;
-      bottom: 10px;
+      bottom: 150px;
       transform: translate(-50%, 0);
+
+      background: #000;
+      color: #fff;
+
+      opacity: 0;
+      transition: opacity 2s;
+
+      &.active-question-1 {
+        opacity: 1;
+      }
 
       &.step-1 {
         display: none;
       }
 
-      > img {
-        height: 100px;
-        margin: 0 20px;
-      }
-
       > div {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0;
-        transition: opacity 2s;
+        margin: 10px 20px 0;
       }
 
-      &.active-question-1 #question-1,
-      &.active-question-2 #question-2,
-      &.active-question-3 #question-3 {
-        opacity: 1;
-      }
-      #question-1 {
-        background: blue;
-      }
-      #question-2 {
-        background: green;
-      }
-      #question-3 {
-        background: yellow;
+      img {
+        height: 100px;
+        margin: 0 40px;
       }
     }
 </style>
@@ -136,7 +127,6 @@
       },
     },
     created() {
-      setTimeout(() => this.incrementQuestion(), 5000);
       setTimeout(() => startCamera(1), 1000);
     },
     methods: {
@@ -145,10 +135,14 @@
       },
 
       highlightGlasses() {
-        this.destroyWebcam();
+        if (this.question === 0) {
+          this.incrementQuestion();
+        } else {
+          this.destroyWebcam();
 
-        this.step += 1;
-        this.body = 'choice-done';
+          this.step += 1;
+          this.body = 'choice-done';
+        }
       },
 
       destroyWebcam() {
@@ -160,6 +154,10 @@
           webcam.src = '';
           webcam.play();
         }
+      },
+
+      goToSelfie() {
+        this.$router.push('/selfie');
       },
     },
     watch: {
