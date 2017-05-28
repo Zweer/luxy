@@ -11,13 +11,18 @@
     </div>
 
     <div class="buttons">
-      <img src="/static/img/schermata4/btn-buy.png">
+      <img src="/static/img/schermata4/btn-buy.png" v-on:click="sendOrder">
       <img src="/static/img/schermata4/btn-live.png">
-      <img src="/static/img/schermata4/btn-send.png" v-on:click="sendEmail">
+      <img src="/static/img/schermata4/btn-send.png" v-on:click="addressEmail">
     </div>
 
-    <div id="email" :class="showEmail">
+    <div class="popup" id="email" :class="showEmail">
       <input type="email" placeholder="Inserisci la tua email:">
+      <button v-on:click="sendEmail">Invia</button>
+    </div>
+
+    <div class="popup" id="buy" :class="showBuy">
+      I tuoi nuovi occhiali ti aspettano in cassa, grazie!
     </div>
 
     <router-link to="/luxy" id="nav-prev"></router-link>
@@ -38,7 +43,7 @@
     }
   }
 
-  #email {
+  .popup {
     position: absolute;
     width: 550px;
     left: 50%;
@@ -57,7 +62,17 @@
       border: 0;
       border-bottom: 2px solid #fff;
 
-      width: 100%;
+      width: 80%;
+    }
+
+    button {
+      background: transparent;
+      border: 0;
+      color: #fff;
+
+      text-align: right;
+
+      width: 18%;
     }
 
     &.visible {
@@ -73,20 +88,33 @@ export default {
   data() {
     return {
       email: false,
+      buy: false,
     };
   },
   computed: {
     showEmail() {
       return this.email ? 'visible' : 'hidden';
     },
+    showBuy() {
+      return this.buy ? 'visible' : 'hidden';
+    },
   },
   methods: {
-    sendEmail() {
+    addressEmail() {
       if (intervalSDK !== -1) {
         clearInterval(intervalSDK);
       }
 
+      this.buy = false;
       this.email = true;
+    },
+    sendEmail() {
+      this.email = false;
+    },
+
+    sendOrder() {
+      this.email = false;
+      this.buy = !this.buy;
     },
   },
   destroyed() {
