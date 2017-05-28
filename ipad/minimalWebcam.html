@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+
+	<title>BRFv4 - HTML5/Javascript Face Tracking: Beyond Reality Face</title>
+
+	<script>
+		var brfv4 = {locateFile: function(fileName) { return "js/lib/brf/" + fileName; }};
+	</script>
+	<script src="js/lib/brf/BRFv4_JS_TK240517_v4.0b31_trial.js"></script>
+	<script src="js/BRFv4DemoMinimalWebcam.js"></script>
+
+</head>
+
+<body>
+
+<video	id="_webcam" style="display: none;"></video>
+<canvas id="_imageData"></canvas>
+
+<script>
+	window.onload = initMinimal; // see BRFv4DemoMinimalWebcam.js
+</script>
+
+</body>
+
+</html>
