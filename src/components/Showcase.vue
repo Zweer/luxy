@@ -2,11 +2,11 @@
   <div>
     <div id="_content">
       <div>
-        <video class="video-webcam" id="_webcam"></video>
-        <canvas class="video-canvas" id="_imageData"></canvas>
-        <canvas class="video-canvas" id="_faceSub"></canvas>
-        <canvas class="video-canvas" id="_threejs"></canvas>
-        <canvas class="video-canvas" id="_drawing"></canvas>
+        <video class="video-webcam" id="_webcam0"></video>
+        <canvas class="video-canvas" id="_imageData0"></canvas>
+        <canvas class="video-canvas" id="_faceSub0"></canvas>
+        <canvas class="video-canvas" id="_threejs0"></canvas>
+        <canvas class="video-canvas" id="_drawing0"></canvas>
       </div>
     </div>
 
@@ -29,7 +29,7 @@ export default {
     }
   },
   created() {
-    setTimeout(startCamera, 1000);
+    setTimeout(() => startCamera(0), 1000);
   },
 };
 </script>

@@ -13,7 +13,7 @@ const toDegree = brfv4.BRFv4PointUtils.toDegree;
 
 function startCamera(tracking = 0) {
   let timeoutWebcam = -1;
-  webcam = document.getElementById('_webcam' + (tracking ? '2' : ''));
+  webcam = document.getElementById('_webcam' + tracking);
 
   function onStreamFetched(mediaStream) {
     webcam.srcObject = mediaStream;
@@ -69,14 +69,14 @@ function startCamera(tracking = 0) {
   }
 
   function initBRF(width, height, tracking) {
-    draw.setup(dom.getElement('_drawing' + (tracking ? '2' : '')), dom.getElement('_faceSub' + (tracking ? '2' : '')), 30);
+    draw.setup(dom.getElement('_drawing' + tracking), dom.getElement('_faceSub' + tracking), 30);
 
     draw.imageContainer.addChild(_baseNode);
     const _imageURLs = ['/static/img/img_glasses.png'];
 
     _image = new createjs.Bitmap(_imageURLs[0]);
 
-    if (!tracking) {
+    if (tracking === 0) {
       _image.image.onload = function onload() {
         changeImage(_image);
       };
@@ -84,7 +84,7 @@ function startCamera(tracking = 0) {
 
     dom.updateLayout(width, height);
     draw.updateLayout(width, height);
-    const imageData = document.getElementById('_imageData' + (tracking ? '2' : ''));
+    const imageData = document.getElementById('_imageData' + tracking);
 
     imageData.width = width;
     imageData.height = height;
@@ -208,7 +208,7 @@ function startCamera(tracking = 0) {
         if (face.state === brfv4.BRFState.FACE_TRACKING_START ||
           face.state === brfv4.BRFState.FACE_TRACKING) {
           switch (tracking) {
-            case 0:
+            case 1:
             {
               // Face Tracking results: 68 facial feature points.
 
@@ -239,7 +239,7 @@ function startCamera(tracking = 0) {
               }
               break;
            } 
-           case 1: 
+           case 0: 
            {
             // Set position to be nose top and calculate rotation.
 

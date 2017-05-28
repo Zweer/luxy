@@ -1,11 +1,11 @@
 <template>
   <div id="background" :class="stepString">
     <div id="_content" :class="stepString">
-      <video class="video-webcam" id="_webcam2"></video>
-      <canvas class="video-canvas" id="_imageData2"></canvas>
-      <canvas class="video-canvas" id="_faceSub2"></canvas>
-      <canvas class="video-canvas" id="_threejs2"></canvas>
-      <canvas class="video-canvas" id="_drawing2"></canvas>
+      <video class="video-webcam" id="_webcam1"></video>
+      <canvas class="video-canvas" id="_imageData1"></canvas>
+      <canvas class="video-canvas" id="_faceSub1"></canvas>
+      <canvas class="video-canvas" id="_threejs1"></canvas>
+      <canvas class="video-canvas" id="_drawing1"></canvas>
 
       <div class="video-canvas" id="glasses">
         <div class="choices">

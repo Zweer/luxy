@@ -2,11 +2,11 @@
   <div>
     <div id="_content">
       <div>
-        <video class="video-webcam" id="_webcam"></video>
-        <canvas class="video-canvas" id="_imageData"></canvas>
-        <canvas class="video-canvas" id="_faceSub"></canvas>
-        <canvas class="video-canvas" id="_threejs"></canvas>
-        <canvas class="video-canvas" id="_drawing"></canvas>
+        <video class="video-webcam" id="_webcam2"></video>
+        <canvas class="video-canvas" id="_imageData2"></canvas>
+        <canvas class="video-canvas" id="_faceSub2"></canvas>
+        <canvas class="video-canvas" id="_threejs2"></canvas>
+        <canvas class="video-canvas" id="_drawing2"></canvas>
       </div>
     </div>
 
