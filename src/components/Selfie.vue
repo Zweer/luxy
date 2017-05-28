@@ -46,7 +46,7 @@
     transform: translate(-50%, 0);
 
     background: #000;
-
+    color: gold;
     padding: 20px;
 
     opacity: 0;
