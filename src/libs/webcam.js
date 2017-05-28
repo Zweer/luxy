@@ -11,7 +11,7 @@ const calcDistance = brfv4.BRFv4PointUtils.calcDistance;
 const calcAngle = brfv4.BRFv4PointUtils.calcAngle;
 const toDegree = brfv4.BRFv4PointUtils.toDegree;
 
-function startCamera(tracking = false) {
+function startCamera(tracking = 0) {
   let timeoutWebcam = -1;
   webcam = document.getElementById('_webcam' + (tracking ? '2' : ''));
 
@@ -25,7 +25,7 @@ function startCamera(tracking = false) {
         timeoutWebcam = setTimeout(onStreamDimensionsAvailable, 100);
       } else {
         // initBRF(webcam.videoWidth, webcam.videoHeight);
-        initBRF(528, 330, tracking);
+        initBRF(619, 389, tracking);
       }
     }
 
@@ -207,35 +207,40 @@ function startCamera(tracking = false) {
 
         if (face.state === brfv4.BRFState.FACE_TRACKING_START ||
           face.state === brfv4.BRFState.FACE_TRACKING) {
-          if (tracking) {
-            // Face Tracking results: 68 facial feature points.
+          switch (tracking) {
+            case 0:
+            {
+              // Face Tracking results: 68 facial feature points.
 
-            draw.drawTriangles(face.candideVertices, face.candideTriangles, false, 1.0, 0xffd200, 0.4, 0, 0);
-            draw.drawTrianglesAsPoints(face.candideVertices, 2.0, false, 0xffd200, 0.4);
+              draw.drawTriangles(face.candideVertices, face.candideTriangles, false, 1.0, 0xffd200, 0.4, 0, 0);
+              draw.drawTrianglesAsPoints(face.candideVertices, 2.0, false, 0xffd200, 0.4);
 
-            draw.drawTriangles(face.vertices, face.triangles, false, 1.0, 0x00a0ff, 0.4, 0, 0);
-            draw.drawTrianglesAsPoints(face.vertices, 2.0, false, 0x00a0ff, 0.4);
+              draw.drawTriangles(face.vertices, face.triangles, false, 1.0, 0x00a0ff, 0.4, 0, 0);
+              draw.drawTrianglesAsPoints(face.vertices, 2.0, false, 0x00a0ff, 0.4);
 
-            var ctx = draw.faceTextures.getContext("2d");
-            ctx.strokeStyle = "white";
-            ctx.lineWidth = 2;
-            ctx.fillStyle = "gold";
-            ctx.font = "13px Arial";
-            var bottom = (face.points[48].y + face.points[60].y) / 2;
-            var bottomb = (face.points[7].y + face.points[9].y) / 2;
-            var top = (face.points[36].y + face.points[45].y) / 2;
+              var ctx = draw.faceTextures.getContext("2d");
+              ctx.strokeStyle = "white";
+              ctx.lineWidth = 2;
+              ctx.fillStyle = "gold";
+              ctx.font = "13px Arial";
+              var bottom = (face.points[48].y + face.points[60].y) / 2;
+              var bottomb = (face.points[7].y + face.points[9].y) / 2;
+              var top = (face.points[36].y + face.points[45].y) / 2;
 
-            var goldenRation = (bottom - top) / (bottomb - bottom);
-            for (var i = 0; i < measures.length; i++) {
-              const measure = measures[i];
-              measure.measures.push(Math.sqrt(Math.pow((face.points[measure.j].x - face.points[measure.i].x), 2) + Math.pow((face.points[measure.j].y - face.points[measure.i].y), 2)));
-              if (measure.measures.length > 10)
-                measure.measures.splice(0, 1);
-              const avg = Math.floor(measure.measures.reduce((a, c) => a + c) / measure.measures.length) / 10;
-              //ctx.strokeText(measure.name + ": " + avg + " cm", 10, 15 + i * 20);
-              ctx.fillText(measure.name + ": " + avg + " cm", 10, 15 + i * 20);
-            }
-          } else {
+              var goldenRation = (bottom - top) / (bottomb - bottom);
+              for (var i = 0; i < measures.length; i++) {
+                const measure = measures[i];
+                measure.measures.push(Math.sqrt(Math.pow((face.points[measure.j].x - face.points[measure.i].x), 2) + Math.pow((face.points[measure.j].y - face.points[measure.i].y), 2)));
+                if (measure.measures.length > 10)
+                  measure.measures.splice(0, 1);
+                const avg = Math.floor(measure.measures.reduce((a, c) => a + c) / measure.measures.length) / 10;
+                //ctx.strokeText(measure.name + ": " + avg + " cm", 10, 15 + i * 20);
+                ctx.fillText(measure.name + ": " + avg + " cm", 10, 15 + i * 20);
+              }
+              break;
+           } 
+           case 1: 
+           {
             // Set position to be nose top and calculate rotation.
 
             _position.x = face.points[27].x;
@@ -258,8 +263,13 @@ function startCamera(tracking = false) {
             _baseNode.alpha = 1.0;
 
             showBaseNode = true;
-          }
-        }
+            break;
+           }
+           case 2:
+           {
+             break;
+           }
+         }
       }
 
       if (!showBaseNode) {

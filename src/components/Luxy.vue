@@ -137,7 +137,7 @@
     },
     created() {
       setTimeout(() => this.incrementQuestion(), 5000);
-      setTimeout(() => startCamera(true), 1000);
+      setTimeout(() => startCamera(1), 1000);
     },
     methods: {
       incrementQuestion() {

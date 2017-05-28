@@ -12,5 +12,6 @@ export default new VueRouter({
     { path: '/', name: 'showcase', component: Showcase },
     { path: '/luxy', name: 'luxy', component: Luxy },
     { path: '/selection', name: 'selection', component: Selection },
+    { path: '/selfie', name: 'selfie', component: Selfie },
   ],
 });
