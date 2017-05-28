@@ -20,12 +20,15 @@
           <img src="/static/img/schermata3/attanasio.png">
           Vuoi vedere la scelta di @fabioattanasio?
         </div>
+        <div class="footer" v-on:click="goToSelfie">
+          <div>Scatta!</div>
+        </div>
       </div>
     </div>
 
     <div id="question" :class="questionString + ' ' + stepString" v-on:click="highlightGlasses">
       <div>
-        Qual è il tuo mood oggi? <br><br>
+        Che cosa ti inspira? <br><br>
         <img src="/static/img/schermata2/esperienza1.png">
         <img src="/static/img/schermata2/esperienza2.png">
         <img src="/static/img/schermata2/esperienza3.png">
@@ -71,6 +74,17 @@
         float: left;
         margin: 0 20px;
         width: 100px;
+      }
+    }
+    .footer {
+      width: 100%;
+      height: 40px;
+      position: absolute;
+      bottom: 0px;
+      text-align: center;
+      background-color: #005192;
+      div {
+        margin-top: 7px;
       }
     }
   }
