@@ -65,7 +65,7 @@ textarea {
   right: 0;
   bottom: 0;
 
-  background: center;
+  background: center no-repeat;
   background-size: cover;
 }
 
