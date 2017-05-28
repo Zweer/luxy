@@ -83,6 +83,10 @@ textarea {
   background-image: url('/static/img/schermata2.png');
   background-size: contain;
 }
+#app.final {
+  background-image: url('/static/img/schermata-final.png');
+  background-size: contain;
+}
 #app.showcase {
   background-image: url('/static/img/schermata1/sfondo.png');
 }
