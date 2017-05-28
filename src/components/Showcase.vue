@@ -1,11 +1,13 @@
 <template>
   <div>
     <div id="_content">
-      <video id="_webcam"></video>
-      <canvas class="video-canvas" id="_imageData"></canvas>
-      <canvas class="video-canvas" id="_faceSub"></canvas>
-      <canvas class="video-canvas" id="_threejs"></canvas>
-      <canvas class="video-canvas" id="_drawing"></canvas>
+      <div>
+        <video id="_webcam"></video>
+        <canvas class="video-canvas" id="_imageData"></canvas>
+        <canvas class="video-canvas" id="_faceSub"></canvas>
+        <canvas class="video-canvas" id="_threejs"></canvas>
+        <canvas class="video-canvas" id="_drawing"></canvas>
+      </div>
     </div>
 
     <router-link to="/luxy" id="nav-next"></router-link>
@@ -21,13 +23,15 @@
 
     transform: translate(-50%, 0);
 
-    width: 594px;
-    height: 410px;
+    width: 594px !important;
+    height: 410px !important;
     margin: auto;
 
     background: url('/static/img/schermata1/ipad.png') center #fff no-repeat;
   }
-
+  video{
+    display: none;
+  }
   #_webcam,
   .video-canvas {
     position: absolute;
@@ -126,9 +130,9 @@ function startCamera() {
     draw.updateLayout(width, height);
     const imageData = document.getElementById('_imageData');
 
-    // imageData.width = width;
-    // imageData.height = height;
-    // imageData.style.position = "absolute";
+    imageData.width = width;
+    imageData.height = height;
+    imageData.style.position = "absolute";
 
     const imageDataCtx = imageData.getContext('2d');
 
@@ -165,7 +169,6 @@ function startCamera() {
       imageDataCtx.setTransform(1.0, 0, 0, 1, 0, 0); // unmirrored for draw of results
 
       brfManager.update(imageDataCtx.getImageData(0, 0, resolution.width, resolution.height).data);
-
       draw.clear();
 
       // Face detection results: a rough rectangle used to start the face tracking.
