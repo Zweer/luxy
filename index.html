@@ -14,10 +14,9 @@
     <script src="static/js/createjs/easeljs-0.8.2.min.js"></script>
     <script>
         window.brfv4 = {
-          locateFile(fileName) {
-            return `static/js/brf/${fileName}`;
-          },
-        };
+            locateFile: function(fileName) {
+                return "static/js/brf/" + fileName;
+            }}
     </script>
     <script src="static/js/brf/BRFv4_JS_TK240517_v4.0b31_trial.js"></script>
 

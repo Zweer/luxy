@@ -32,13 +32,15 @@
       right: 0;
       bottom: 0;
 
-      display: none;
+      opacity: 0;
+
+      transition: opacity 2s;
     }
 
     &.active-question-1 #question-1,
     &.active-question-2 #question-2,
     &.active-question-3 #question-3 {
-      display: block;
+      opacity: 1;
     }
 
     #question-1 {
@@ -50,7 +52,7 @@
     }
 
     #question-3 {
-      backround: yellow;
+      background: yellow;
     }
   }
 </style>
