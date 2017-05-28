@@ -75,6 +75,12 @@ textarea {
   height: 100%;
 }
 
+#app.pre-1 {
+  background-image: url('/static/img/schermata1.png');
+}
+#app.pre-2 {
+  background-image: url('/static/img/schermata2.png');
+}
 #app.showcase {
   background-image: url('/static/img/schermata1/sfondo.png');
 }
