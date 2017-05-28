@@ -110,8 +110,8 @@ textarea {
 
   transform: translate(-50%, 0);
 
-  width: 600px !important;
-  height: 404px !important;
+  width: 700px !important;
+  height: 474px !important;
   margin: auto;
 
   background: url('/static/img/tablet.png') center no-repeat;
@@ -126,11 +126,11 @@ textarea {
 .video-canvas {
   position: absolute;
 
-  top: 37px;
-  left: 37px;
+  top: 43px;
+  left: 41px;
 
-  width: 528px;
-  height: 330px;
+  width: 619px;
+  height: 389px;
 }
 
 
