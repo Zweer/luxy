@@ -81,7 +81,7 @@
     watch: {
       question(val) {
         if (val > 3) {
-          this.$router.push('/');
+          this.$router.push('/selection');
         }
       },
     },
