@@ -19,28 +19,31 @@
     position: absolute;
 
     left: 50%;
-    bottom: 80px;
+    bottom: 120px;
 
     transform: translate(-50%, 0);
 
-    width: 594px !important;
-    height: 410px !important;
+    width: 600px !important;
+    height: 404px !important;
     margin: auto;
 
-    background: url('/static/img/schermata1/ipad.png') center #fff no-repeat;
+    background: url('/static/img/tablet.png') center no-repeat;
+    background-size: contain;
   }
-  video{
+
+  #_webcam {
     display: none;
   }
+
   #_webcam,
   .video-canvas {
     position: absolute;
 
-    top: 72px;
-    left: 48px;
+    top: 37px;
+    left: 37px;
 
-    width: 452px;
-    height: 272px;
+    width: 528px;
+    height: 330px;
   }
 </style>
 <script>
@@ -71,7 +74,7 @@ function startCamera() {
         timeoutWebcam = setTimeout(onStreamDimensionsAvailable, 100);
       } else {
         // initBRF(webcam.videoWidth, webcam.videoHeight);
-        initBRF(452, 272);
+        initBRF(528, 330);
       }
     }
 
