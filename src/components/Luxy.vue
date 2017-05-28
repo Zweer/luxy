@@ -18,7 +18,7 @@
 
         <div class="influencer">
           <img src="/static/img/schermata3/attanasio.png">
-          Vuoi vedere la scelta di @fabioattanasio?
+          <div>Vuoi vedere la scelta di @fabioattanasio?</div>
         </div>
         <div class="footer" v-on:click="goToSelfie">
           <div>Scatta!</div>
@@ -51,8 +51,8 @@
 
   #glasses {
     display: none;
-    background: #000;
-    color: antiquewhite;
+    background: white;
+    color: #005192;
 
     .step-1 & {
       display: block;
@@ -60,6 +60,7 @@
 
     .choices {
       margin: 20px;
+      text-align: center;
 
       > img {
         width: 90px;
@@ -75,6 +76,10 @@
         margin: 0 20px;
         width: 100px;
       }
+
+      div {
+        padding-top: 35px;
+      }
     }
     .footer {
       width: 100%;
@@ -84,6 +89,7 @@
       text-align: center;
       background-color: #005192;
       div {
+        color: black;
         margin-top: 7px;
       }
     }

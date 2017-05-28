@@ -50,7 +50,7 @@
     bottom: 330px;
     transform: translate(-50%, 0);
 
-    background: #000;
+    background: #005192;
     color: gold;
     padding: 20px;
 
