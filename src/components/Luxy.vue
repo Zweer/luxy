@@ -89,7 +89,7 @@
       text-align: center;
       background-color: #005192;
       div {
-        color: black;
+        color: white;
         margin-top: 7px;
       }
     }
