@@ -28,7 +28,7 @@
 
     <div id="question" :class="questionString + ' ' + stepString" v-on:click="highlightGlasses">
       <div>
-        Che cosa ti inspira? <br><br>
+        Che cosa ti ispira? <br><br>
         <img src="/static/img/schermata2/esperienza1.png">
         <img src="/static/img/schermata2/esperienza2.png">
         <img src="/static/img/schermata2/esperienza3.png">
