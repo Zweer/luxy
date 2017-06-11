@@ -17,12 +17,14 @@
     </div>
 
     <div class="popup" id="email" :class="showEmail">
-      <input type="email" placeholder="Inserisci la tua email:">
+      <h3>Inserisci la tua email</h3>
+      <input type="email" title="email">
       <button v-on:click="sendEmail">Invia</button>
     </div>
 
     <div class="popup" id="buy" :class="showBuy">
-      I tuoi nuovi occhiali ti aspettano in cassa, grazie!
+      <h3>Grazie!</h3>
+      <p>I tuoi nuovi occhiali ti aspettano in cassa</p>
     </div>
 
     <router-link to="/luxy" id="nav-prev"></router-link>
@@ -46,34 +48,53 @@
 
   .popup {
     position: absolute;
-    width: 550px;
+    width: 300px;
     left: 50%;
     bottom: 330px;
     transform: translate(-50%, 0);
+    border-radius: 8px;
+    padding-bottom: 10px;
+    margin: auto;
 
-    background: #005192;
-    color: antiquewhite;
-    padding: 20px;
+    background:rgba(255,255,255,0.85);
+    color: #070707;
 
     opacity: 0;
     transition: opacity 2s;
 
+    h3 {
+      margin: 20px 0 0 0;
+      padding: 10px;
+      font-size: 18px;
+      text-align: center;
+    }
+
     input {
+      display: block;
+      margin: 0 10px;
       background: transparent;
       border: 0;
-      border-bottom: 2px solid #fff;
-
-      width: 80%;
+      border-bottom: 2px solid #BABABA;
+      color: #070707;
+      width: calc(100% - 20px);
     }
 
     button {
+      display: block;
+
       background: transparent;
       border: 0;
-      color: #fff;
+      color: #007AFF;
+      margin: 20px 0 0;
 
-      text-align: right;
+      text-align: center;
 
-      width: 18%;
+      width: 100%;
+    }
+
+    p {
+      padding: 0 10px 10px;
+      text-align: center;
     }
 
     &.visible {
