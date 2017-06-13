@@ -76,6 +76,11 @@
         .popup-close:hover {
             color: #333;
         }
+        input[type="file"] {        
+          height: 100vh;
+          width: 100%;
+          background: red;
+        }
     </style>
     <script>
         var brfv4 = {
@@ -84,7 +89,7 @@
             }
         };
     </script>
-    <script src="js/lib/createjs/preloadjs-0.6.2.min.js"></script>
+    <!--<script src="js/lib/createjs/preloadjs-0.6.2.min.js"></script>
     <script src="js/lib/createjs/easeljs-0.8.2.min.js"></script>
     <script src="js/lib/brf/BRFv4_JS_TK240517_v4.0b31_trial.js"></script>
 
@@ -92,11 +97,11 @@
     <script src="js/utils/BRFv4DOMUtils.js"></script>
     <script src="js/utils/BRFv4PointUtils.js"></script>
     <script src="js/BRFv4DemoMinimalWebcamOverlay.js"></script>
-    <script src="js/simple-popup.min.js"></script>
+    <script src="js/simple-popup.min.js"></script>-->
 </head>
 
 <body>
-    <div style="position:relative">
+    <!--<div style="position:relative">
         <div id="popup" class="popup-wrapper hide">
             <div class="popup-content">
                 <div class="popup-title">
@@ -115,11 +120,21 @@
             <canvas id="_threejs"></canvas>
             <canvas id="_drawing"></canvas>
         </div>
-    </div>
+    </div>-->
     <script>
-        window.onload = initMinimal; // see BRFv4DemoMinimalWebcam.js
+        //window.onload = initMinimal; // see BRFv4DemoMinimalWebcam.js        
+        window.onload = function(){
+            var btn = document.getElementById("capture");
+            btn.click(); //Doesn't work, no user interaction
+            btn.onchange = function(e){         
+              var submit = document.getElementById("form");
+              submit.submit();
+            }
+        }
     </script>
-
+    <form id="form" action="/ipad/post" enctype="multipart/form-data" method="POST">
+      <input type="file" accept="image/*" id="capture" capture="camera" name="file">
+    </form> 
 </body>
 
 </html>
