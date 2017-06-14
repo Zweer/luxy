@@ -21,10 +21,11 @@ app.post('/post', function(req, res){
     var attachments = [];
 
     var mailOptions = {
-        from: "LuxyLover <lovers@luxy.ga>", // sender address
-        to: "Niccolò <niccolo@olivieriachille.com>, Andrea <andrea.j.gambi@gmail.com>", // comma separated list of receivers
-        subject: "Luxy Photo Share ❣", // Subject line
-        text: "Questa è la foto condivisa con te!" // plaintext body
+        from: "LuxyLovers <lovers@luxy.ga>", // sender address
+	to: "Pietro Caprara <peter_90@hotmail.it>",
+        cc: "Lorenzo Barbero <lorenzo.barbero2@gmail.com>, Gianmarco Venuto <gianmarcovenuto@projectgroup.com>, Niccolò Olivieri Achille <niccolo@olivieriachille.com>, Andrea Gambi <andrea.j.gambi@gmail.com>", // comma separated list of receivers
+        subject: "LuxyLovers Photo Share ❣", // Subject line
+        text: "Pietro chiede il tuo parere su questo paio di occhiali!" // plaintext body
     };
 
     busboy
