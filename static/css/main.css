@@ -105,6 +105,10 @@ textarea {
 
   right: 0;
   bottom: 0;
+  background-image: url('/static/img/next-128.png');
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: contain;
 }
 
 #nav-prev {
@@ -115,6 +119,10 @@ textarea {
 
   left: 0;
   bottom: 0;
+  background-image: url('/static/img/back-128.png');
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: contain;
 }
 
 #_content {
