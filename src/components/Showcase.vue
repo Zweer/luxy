@@ -9,7 +9,7 @@
         <canvas class="video-canvas" id="_drawing0"></canvas>
       </div>
     </div>
-
+    <router-link to="/pre-2" id="nav-prev"></router-link>
     <router-link to="/luxy" id="nav-next"></router-link>
   </div>
 </template>

@@ -35,7 +35,8 @@
       </div>
     </div>
 
-    <router-link to="/" id="nav-prev"></router-link>
+    <router-link to="/showcase" id="nav-prev"></router-link>
+    <router-link to="/selfie" id="nav-next"></router-link>
   </div>
 </template>
 
