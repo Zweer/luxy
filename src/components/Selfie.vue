@@ -18,8 +18,12 @@
 
     <div class="popup" id="email" :class="showEmail">
       <h3>Inserisci la tua email</h3>
-      <input type="email" title="email">
+      <input type="email" title="email" v-model="emailaddress">
       <button v-on:click="sendEmail">Invia</button>
+    </div>
+    <div class="popup" id="confirmMail" :class="showConfirmMail">
+      <h3>Email inviata!</h3>
+      <button v-on:click="closeConfirmMail">Ok</button>
     </div>
 
     <div class="popup" id="buy" :class="showBuy">
@@ -111,6 +115,8 @@ export default {
     return {
       email: false,
       buy: false,
+      confirmMail: false,
+      emailaddress: "",
     };
   },
   computed: {
@@ -120,6 +126,9 @@ export default {
     showBuy() {
       return this.buy ? 'visible' : 'hidden';
     },
+    showConfirmMail() {
+      return this.confirmMail ? 'visible' : 'hidden';
+    }
   },
   methods: {
     addressEmail() {
@@ -130,10 +139,37 @@ export default {
       this.buy = false;
       this.email = true;
     },
+    
     sendEmail() {
       this.email = false;
+      var canvas = document.getElementById("_imageData2");
+      var canvasData = canvas.toDataURL("image/png");
+      var ajax = new XMLHttpRequest();
+      ajax.open("POST",'https://luxy.ga/post',true);
+      ajax.onreadystatechange = function() {
+          console.log(ajax.responseText);
+      }
+      function dataURItoBlob(dataURI) {
+          var byteString = atob(dataURI.split(',')[1]);
+          var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+          var ab = new ArrayBuffer(byteString.length);
+          var ia = new Uint8Array(ab);
+          for (var i = 0; i < byteString.length; i++) {
+              ia[i] = byteString.charCodeAt(i);
+          }
+          return new Blob([ab], {type: mimeString});
+      }
+      var formData = new FormData();
+      formData.append("file", dataURItoBlob(canvasData), "MySelfie.png");
+      //formData.append("email", this.email);
+      //ajax.setRequestHeader('Content-Type', 'application/upload');
+      ajax.setRequestHeader('X-Email', this.emailaddress);
+      ajax.send(formData);
+      this.confirmMail = true;
     },
-
+    closeConfirmMail(){
+      this.confirmMail = false;
+    },
     sendOrder() {
       this.email = false;
       this.buy = !this.buy;
