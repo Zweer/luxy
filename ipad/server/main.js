@@ -51,7 +51,7 @@ app.post('/post', function(req, res){
                console.log("SENT");
            });
 	   console.log('Done parsing form!');
-	   res.writeHead(302, { Connection: 'close', Location: '/ipad/thankyou' });
+	   res.writeHead(302, { Connection: 'close', Location: '/ipad' });
 	   res.end();});
         });
     req.pipe(busboy);
