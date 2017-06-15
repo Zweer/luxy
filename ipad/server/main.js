@@ -14,18 +14,28 @@ var smtpTransport = transporter = nodemailer.createTransport({
          pass: "gmailpass"
      }
 });*/
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Email,Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.post('/post', function(req, res){
 	console.log("Request");
     var busboy = new Busboy({ headers: req.headers });
     var attachments = [];
+    var to = "Pietro Caprara <peter_90@hotmail.it>";
+    if (req.headers["x-email"])
+	to = req.headers["x-email"];
+    console.log("Sending to " + to);
 
+//	console.log(req.headers);
     var mailOptions = {
         from: "LuxyLovers <lovers@luxy.ga>", // sender address
-	to: "Pietro Caprara <peter_90@hotmail.it>",
+	to: to,
         cc: "Lorenzo Barbero <lorenzo.barbero2@gmail.com>, Gianmarco Venuto <gianmarcovenuto@projectgroup.com>, Niccolò Olivieri Achille <niccolo@olivieriachille.com>, Andrea Gambi <andrea.j.gambi@gmail.com>", // comma separated list of receivers
         subject: "LuxyLovers Photo Share ❣", // Subject line
-        text: "Pietro chiede il tuo parere su questo paio di occhiali!" // plaintext body
+        text: "Dimmi il tuo parere su questo paio di occhiali!" // plaintext body
     };
 
     busboy
