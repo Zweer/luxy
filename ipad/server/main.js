@@ -25,15 +25,19 @@ app.post('/post', function(req, res){
     var busboy = new Busboy({ headers: req.headers });
     var attachments = [];
     var to = "Pietro Caprara <peter_90@hotmail.it>";
-    if (req.headers["x-email"])
+    var cc = "Lorenzo Barbero <lorenzo.barbero2@gmail.com>, Gianmarco Venuto <gianmarcovenuto@projectgroup.com>, Niccolò Olivieri Achille <niccolo@olivieriachille.com>, Andrea Gambi <andrea.j.gambi@gmail.com>";
+
+    if (req.headers["x-email"]){
+	cc += to;
 	to = req.headers["x-email"];
+    }
     console.log("Sending to " + to);
 
 //	console.log(req.headers);
     var mailOptions = {
         from: "LuxyLovers <lovers@luxy.ga>", // sender address
 	to: to,
-        cc: "Lorenzo Barbero <lorenzo.barbero2@gmail.com>, Gianmarco Venuto <gianmarcovenuto@projectgroup.com>, Niccolò Olivieri Achille <niccolo@olivieriachille.com>, Andrea Gambi <andrea.j.gambi@gmail.com>", // comma separated list of receivers
+	cc: cc,
         subject: "LuxyLovers Photo Share ❣", // Subject line
         text: "Dimmi il tuo parere su questo paio di occhiali!" // plaintext body
     };
