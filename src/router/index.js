@@ -10,6 +10,7 @@ import Pre1 from '@/components/Pre1';
 import Pre2 from '@/components/Pre2';
 import Aft1 from '@/components/Aft1';
 import Aft2 from '@/components/Aft2';
+import Aft3 from '@/components/Aft3';
 import Final from '@/components/Final';
 
 Vue.use(VueRouter);
@@ -27,6 +28,7 @@ const router = new VueRouter({
     { path: '/selfie', name: 'selfie', component: Selfie },
     { path: '/aft-1', name: 'aft-1', component: Aft1 },
     { path: '/aft-2', name: 'aft-2', component: Aft2 },
+    { path: '/aft-3', name: 'aft-3', component: Aft3 },
   ],
 });
 
