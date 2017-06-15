@@ -36,7 +36,9 @@
     </div>
 
     <router-link to="/showcase" id="nav-prev"></router-link>
-    <router-link to="/selfie" id="nav-next"></router-link>
+    <router-link to="/selfie" 
+              :event="''"
+             @click.native.prevent="highlightGlasses()" id="nav-next"></router-link>
   </div>
 </template>
 
@@ -155,14 +157,15 @@
         this.question += 1;
       },
 
-      highlightGlasses() {
+      highlightGlasses(e) {
+        e && e.preventDefault();
         if (this.question === 0) {
           this.incrementQuestion();
         } else {
           this.destroyWebcam();
 
           this.step += 1;
-          this.body = 'choice-done';
+          this.body = 'choice-done';          
         }
       },
 
@@ -186,6 +189,10 @@
         if (val > 3) {
           this.$router.push('/selection');
         }
+      },
+      step(val){
+        if (val > 1)
+          this.$router.push('/selfie');
       },
     },
     destroyed() {
